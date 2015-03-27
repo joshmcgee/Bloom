@@ -1,4 +1,4 @@
 Bloom
 =====
 
-Flower game for Bangarang.
+Flower game for Third Gate.
