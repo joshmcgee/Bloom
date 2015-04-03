@@ -76,7 +76,7 @@ public class BackgroundGenerator : MonoBehaviour {
 		                                    1.0f);
 
 		// Move it.
-		int yPos = (int)(-(Screen.height / 2) + (dirtObject.localScale.y / 2));
+		float yPos = (int)(-(Screen.height / 2) + (dirtObject.localScale.y / 2));
 		dirtObject.position = new Vector3(0.0f, yPos, dirtDepth);
 	}
 
