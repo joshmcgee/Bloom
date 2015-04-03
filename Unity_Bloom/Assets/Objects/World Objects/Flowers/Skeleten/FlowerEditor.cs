@@ -28,12 +28,16 @@ public class FlowerEditor : MonoBehaviour {
 	public int petalScale = 40;
 	public int petalCount = 8;
 	public int petalOffset = 20;
+	public float petalSwayFrequency = 2.0f;
+	public float petalSwayAmplitude = 10.0f;
+	public float petalSwayOffset = 0.0f;
+	private float currentPetalSwayOffset = 0.0f;
 	public Color petalColor = Vector4.one;
 	public List<Transform> petals = new List<Transform>();
 
 	public Sprite petalStripeSprite;
-	public int petalStripeScale = 20;
-	public int petalStripeOffset = 0;
+	public float petalStripeScale = 20;
+	public float petalStripeOffset = 0;
 	public Color petalStripeColor = Vector4.one;
 	public List<Transform> petalStripes = new List<Transform>();
 
@@ -101,6 +105,7 @@ public class FlowerEditor : MonoBehaviour {
 	void UpdatePetals() {
 		UpdatePetalCount();
 
+		currentPetalSwayOffset = 0.0f;
 		if (petals.Count > 0) {
 			float deltaAngle = (Mathf.PI * 2.0f) / petals.Count;
 			float angle = Mathf.PI / 2;
@@ -124,6 +129,13 @@ public class FlowerEditor : MonoBehaviour {
 				                                  Mathf.Sin(angle) * petalOffset,
 				                                  0.0f);
 
+				// Make it sway.
+				SwayController petalSwayController = petal.gameObject.GetComponent<SwayController>();
+				petalSwayController.restAngle = petal.localEulerAngles.z;
+				petalSwayController.frequency = petalSwayFrequency;
+				petalSwayController.amplitude = petalSwayAmplitude;
+				petalSwayController.swayOffset = currentPetalSwayOffset;
+
 				// Layer it properly.
 				petalRenerer.sortingLayerName = "Flower";
 
@@ -146,6 +158,13 @@ public class FlowerEditor : MonoBehaviour {
 				stripe.localPosition = new Vector3(Mathf.Cos(angle) * petalStripeOffset,
 				                                   Mathf.Sin(angle) * petalStripeOffset,
 				                                   0.0f);
+				
+				// Make it sway.
+				SwayController stripeSwayController = stripe.gameObject.GetComponent<SwayController>();
+				stripeSwayController.restAngle = stripe.localEulerAngles.z;
+				stripeSwayController.frequency = petalSwayFrequency;
+				stripeSwayController.amplitude = petalSwayAmplitude;
+				stripeSwayController.swayOffset = currentPetalSwayOffset;
 
 				// Layer it properly.
 				stripeRenerer.sortingLayerName = "Flower";
@@ -154,6 +173,7 @@ public class FlowerEditor : MonoBehaviour {
 
 				// Update necessary loop values.
 				angle += deltaAngle;
+				currentPetalSwayOffset += petalSwayOffset;
 			}
 
 			/*foreach (Transform petal in petals) {
@@ -181,6 +201,7 @@ public class FlowerEditor : MonoBehaviour {
 	void UpdatePetalCount() {
 		if (petals.Count < petalCount) {
 			// Add petals.
+			currentPetalSwayOffset = 0.0f;
 			for (int i = petals.Count; i < petalCount; i++) {
 
 				// Petals
@@ -191,6 +212,7 @@ public class FlowerEditor : MonoBehaviour {
 				newPetal.transform.parent = flowerHead;
 				SpriteRenderer petalRenderer = newPetal.GetComponent<SpriteRenderer>();
 				petalRenderer.sprite = petalSprite;
+				newPetal.gameObject.AddComponent<SwayController>();
 				petals.Add(newPetal);
 
 				// Stripes
@@ -202,7 +224,11 @@ public class FlowerEditor : MonoBehaviour {
 				SpriteRenderer stripeRenderer = newStripe.GetComponent<SpriteRenderer>();
 				stripeRenderer.sprite = petalStripeSprite;
 				stripeRenderer.sortingOrder = 1;
+				newStripe.gameObject.AddComponent<SwayController>();
 				petalStripes.Add(newStripe);
+
+
+				currentPetalSwayOffset += petalSwayOffset;
 			}
 		}
 		else if (petals.Count > petalCount) {
