@@ -126,7 +126,7 @@ public class GridGenerator : MonoBehaviour {
 				GameObject newNode = Instantiate(nodeObject, 
 				                                 new Vector3(xPos, yPos, gridTrans.position.z), 
 				                                 Quaternion.Euler(Vector3.zero)) as GameObject;
-				newNode.name = "Grid Node (" + xPos + ", " + yPos + ")";
+				newNode.name = "Grid Node";
 				newNode.transform.parent = gridTrans;
 				gridNodes.Add(newNode.transform);
 

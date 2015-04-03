@@ -3,6 +3,7 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - Fence Post
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   Builtin Layer 6: 
   Builtin Layer 7: 
   User Layer 8: Root Nodes
-  User Layer 9: 
+  User Layer 9: Sky
   User Layer 10: 
   User Layer 11: 
   User Layer 12: 
@@ -41,23 +42,23 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
-  - name: Debug
-    userID: 5
-    uniqueID: 2272030323
-    locked: 0
-  - name: Flower
-    userID: 1
-    uniqueID: 3063215305
-    locked: 0
-  - name: Underground
-    userID: 4
-    uniqueID: 4092441785
+  - name: Sky
+    userID: 3
+    uniqueID: 2074545265
     locked: 0
   - name: Background
     userID: 2
     uniqueID: 3661704917
     locked: 0
-  - name: Sky
-    userID: 3
-    uniqueID: 2074545265
+  - name: Underground
+    userID: 4
+    uniqueID: 4092441785
+    locked: 0
+  - name: Flower
+    userID: 1
+    uniqueID: 3063215305
+    locked: 0
+  - name: Debug
+    userID: 5
+    uniqueID: 2272030323
     locked: 0

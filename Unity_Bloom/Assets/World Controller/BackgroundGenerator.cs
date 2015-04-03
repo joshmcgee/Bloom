@@ -99,6 +99,9 @@ public class BackgroundGenerator : MonoBehaviour {
 	}
 
 	void UpdateFence () {
+
+		RemoveAllFencePosts();
+
 		// We need a reference post to do some calculations.
 		GameObject referencePost = fenceObject.gameObject;
 		SpriteRenderer referenceRenderer = referencePost.GetComponent<SpriteRenderer>();
@@ -140,6 +143,7 @@ public class BackgroundGenerator : MonoBehaviour {
 				                                Vector3.zero, 
 				                                Quaternion.Euler(Vector3.zero)) as Transform;
 				newPost.name = "Post";
+				newPost.tag = "Fence Post";
 				fencePosts.Add(newPost);
 			}
 		}
@@ -153,6 +157,14 @@ public class BackgroundGenerator : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	void RemoveAllFencePosts() {
+		foreach (GameObject post in GameObject.FindGameObjectsWithTag("Fence Post")) {
+			DestroyImmediate(post);
+		}
+
+		fencePosts = new List<Transform>();
 	}
 
 

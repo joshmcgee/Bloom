@@ -895,6 +895,7 @@ MonoBehaviour:
   - {fileID: 400038}
   - {fileID: 400034}
   - {fileID: 400030}
+  leafTrans: {fileID: 0}
   leafSprite: {fileID: 21300000, guid: 6a898ee327c04e8498a093636a62b3ac, type: 3}
   leafPairCount: 3
   leafLowScale: 45
@@ -925,7 +926,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
+  m_SortingLayerID: 3063215305
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3b2242f3154707c4aba7ff0fd97e14e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

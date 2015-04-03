@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [ExecuteInEditMode]
 public class FlowerEditor : MonoBehaviour {
 
-	//private bool savedEnabledState = true;
+	private bool savedEnabledState = true;
 
 	public Transform genericSprite;
 	
@@ -37,6 +37,7 @@ public class FlowerEditor : MonoBehaviour {
 	public Color petalStripeColor = Vector4.one;
 	public List<Transform> petalStripes = new List<Transform>();
 
+	public Transform leafTrans;
 	public Sprite leafSprite;
 	public int leafPairCount = 3;
 	public int leafLowScale = 45;
@@ -44,10 +45,14 @@ public class FlowerEditor : MonoBehaviour {
 	public int leafLowHeight = 90;
 	public int leafHighHeight = 180;
 	public float leafAngle = 20.0f;
+	public float leafSwayFrequency = 2.0f;
+	public float leafSwayAmplitude = 10.0f;
+	public float leafSwayOffset = 0.0f;
+	private float currentLeafSwayOffset = 0.0f;
 	public Color leafColor = Vector4.one;
 	public List<Transform> leafPairs = new List<Transform>();
 
-	/*void Start () {
+	void Start () {
 		// Play Mode:
 		if (Application.isPlaying) {
 			// Turn off the editor so it doesn't muck anything up.
@@ -60,7 +65,7 @@ public class FlowerEditor : MonoBehaviour {
 			Debug.Log("FlowerEditor: Editor Mode");
 			this.enabled = savedEnabledState;
 		}
-	}*/
+	}
 
 
 	// Update is called once per frame
@@ -119,6 +124,9 @@ public class FlowerEditor : MonoBehaviour {
 				                                  Mathf.Sin(angle) * petalOffset,
 				                                  0.0f);
 
+				// Layer it properly.
+				petalRenerer.sortingLayerName = "Flower";
+
 				//--------------------------------------------
 
 				// Grab the stripe.
@@ -138,6 +146,9 @@ public class FlowerEditor : MonoBehaviour {
 				stripe.localPosition = new Vector3(Mathf.Cos(angle) * petalStripeOffset,
 				                                   Mathf.Sin(angle) * petalStripeOffset,
 				                                   0.0f);
+
+				// Layer it properly.
+				stripeRenerer.sortingLayerName = "Flower";
 
 				//--------------------------------------------
 
@@ -229,9 +240,12 @@ public class FlowerEditor : MonoBehaviour {
 
 		UpdateLeafCount();
 
+
 		if (leafPairs.Count > 0) {
 			float deltaHeight = (leafHighHeight - leafLowHeight) / leafPairs.Count;
 			float deltaScale = (leafHighScale - leafLowScale) / leafPairs.Count;
+			currentLeafSwayOffset = 0.0f;
+
 			for (int i = 0; i < leafPairs.Count; i++) {
 
 				// Grab the leaf pair.
@@ -265,6 +279,23 @@ public class FlowerEditor : MonoBehaviour {
 				SpriteRenderer rightLeafRenderer = rightLeaf.GetComponent<SpriteRenderer>();
 				//rightLeafRenderer.material.color = leafColor;
 				rightLeafRenderer.sharedMaterial.color = leafColor;
+
+				// Sway them.
+				SwayController swayController = leftLeaf.GetComponent<SwayController>();
+				swayController.isLeftLeaf = true;
+				swayController.restAngle = -leafAngle;
+				swayController.frequency = leafSwayFrequency;
+				swayController.amplitude = leafSwayAmplitude;
+				swayController.swayOffset = currentLeafSwayOffset;
+
+				swayController = rightLeaf.GetComponent<SwayController>();
+				swayController.isLeftLeaf = false;
+				swayController.restAngle = leafAngle;
+				swayController.frequency = leafSwayFrequency;
+				swayController.amplitude = leafSwayAmplitude;
+				swayController.swayOffset = currentLeafSwayOffset;
+
+				currentLeafSwayOffset += leafSwayOffset;
 
 
 
@@ -303,7 +334,7 @@ public class FlowerEditor : MonoBehaviour {
 
 
 				// Create the left leaf.
-				Transform leftLeaf = Instantiate(genericSprite, 
+				Transform leftLeaf = Instantiate(leafTrans, 
 				                                 Vector3.zero, 
 				                                 Quaternion.Euler(new Vector3(0.0f, 0.0f, -leafAngle))) as Transform;
 				leftLeaf.name = "Left Leaf";
@@ -315,7 +346,7 @@ public class FlowerEditor : MonoBehaviour {
 
 
 				// Create the right leaf.
-				Transform rightLeaf = Instantiate(genericSprite, 
+				Transform rightLeaf = Instantiate(leafTrans, 
 				                                  Vector3.zero, 
 				                                  Quaternion.Euler(new Vector3(0.0f, 0.0f, leafAngle))) as Transform;
 				rightLeaf.name = "Right Leaf";
