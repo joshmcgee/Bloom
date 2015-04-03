@@ -112,7 +112,7 @@ public class BackgroundGenerator : MonoBehaviour {
 		float postHeight = referenceRenderer.sprite.textureRect.height * scaleRatio;
 
 		// Calculate how many posts needed to cover the screen.
-		fencePostCount = Mathf.CeilToInt((Screen.width + fenceOffset) / postWidth);
+		fencePostCount = Mathf.CeilToInt((Screen.width + fenceOffset) / postWidth) + 1;
 
 		UpdateFenceCount();
 
