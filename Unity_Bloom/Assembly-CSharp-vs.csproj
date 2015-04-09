@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Cameras\Main\MainCamera.cs" />
+     <Compile Include="Assets\FXAA\Scripts\FXAA.cs" />
+     <Compile Include="Assets\FXAA\Scripts\FXAAPostEffectsBase.cs" />
      <Compile Include="Assets\Objects\World Objects\Flowers\Skeleten\FlowerController.cs" />
      <Compile Include="Assets\Objects\World Objects\Flowers\Skeleten\FlowerEditor.cs" />
      <Compile Include="Assets\Objects\World Objects\Ground\Dirt\Dirt.cs" />
@@ -58,6 +60,8 @@
      <Compile Include="Assets\World Controller\Roots Grid\GridGenerator.cs" />
      <Compile Include="Assets\World Controller\Roots Grid\RootNodeController.cs" />
      <Compile Include="Assets\World Controller\WorldController.cs" />
+     <None Include="Assets\FXAA\Shaders\Fxaa3.shader" />
+     <None Include="Assets\FXAA\Shaders\Fxaa3_9.cginc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
