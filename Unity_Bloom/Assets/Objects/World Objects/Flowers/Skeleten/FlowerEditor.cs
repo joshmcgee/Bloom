@@ -155,16 +155,18 @@ public class FlowerEditor : MonoBehaviour {
 				stripe.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, (angle * Mathf.Rad2Deg) - 90));
 				
 				// Position the stripe.
-				stripe.localPosition = new Vector3(Mathf.Cos(angle) * petalStripeOffset,
-				                                   Mathf.Sin(angle) * petalStripeOffset,
-				                                   0.0f);
+				stripe.parent = petal;
+				stripe.localPosition = new Vector3(0, petalStripeOffset, 0);
+
+
 				
 				// Make it sway.
 				SwayController stripeSwayController = stripe.gameObject.GetComponent<SwayController>();
-				stripeSwayController.restAngle = stripe.localEulerAngles.z;
-				stripeSwayController.frequency = petalSwayFrequency;
-				stripeSwayController.amplitude = petalSwayAmplitude;
-				stripeSwayController.swayOffset = currentPetalSwayOffset;
+				//stripeSwayController.restAngle = stripe.localEulerAngles.z;
+				//stripeSwayController.frequency = petalSwayFrequency;
+				//stripeSwayController.amplitude = petalSwayAmplitude;
+				//stripeSwayController.swayOffset = currentPetalSwayOffset;
+				stripeSwayController.enabled = false;
 
 				// Layer it properly.
 				stripeRenerer.sortingLayerName = "Flower";
