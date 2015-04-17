@@ -60,13 +60,13 @@ public class FlowerEditor : MonoBehaviour {
 		// Play Mode:
 		if (Application.isPlaying) {
 			// Turn off the editor so it doesn't muck anything up.
-			Debug.Log("FlowerEditor: Play Mode");
+			//Debug.Log("FlowerEditor: Play Mode");
 			savedEnabledState = this.enabled;
 			this.enabled = false;
 		}
 		// Editor:
 		else {
-			Debug.Log("FlowerEditor: Editor Mode");
+			//Debug.Log("FlowerEditor: Editor Mode");
 			this.enabled = savedEnabledState;
 		}
 	}

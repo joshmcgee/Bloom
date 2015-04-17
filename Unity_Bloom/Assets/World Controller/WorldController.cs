@@ -11,15 +11,17 @@ public class WorldController : MonoBehaviour {
 		gridGenerator = transform.GetComponent<GridGenerator>();
 
 		if (Application.isPlaying) {
-			bgGenerator.enabled = false;
+			//bgGenerator.enabled = false;
 			//gridGenerator.enabled = false;
 		}
 	}
 
 	// Use this for initialization
 	void Start () {
-		bgGenerator.GenerateBackground();
-		gridGenerator.GenerateGrid();
+		//bgGenerator.GenerateBackground();
+		//bgGenerator.enabled = false;
+
+		//gridGenerator.GenerateGrid();
 	}
 
 	void OnApplicationQuit () {

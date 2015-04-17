@@ -8,6 +8,9 @@ public class BackgroundGenerator : MonoBehaviour {
 	// Generic
 	public Transform genericQuad;
 
+	public float screenWidth = 0.0f;
+	public float screenHeight = 0.0f;
+
 	// Flower
 	public Transform flower;
 	public int flowerDepth = 0;
@@ -46,10 +49,16 @@ public class BackgroundGenerator : MonoBehaviour {
 	}
 
 	public void GenerateBackground () {
+		UpdateScreenValues();
 		UpdateDirt();
 		UpdateFlower();
 		UpdateGrass();
 		UpdateFence();
+	}
+
+	void UpdateScreenValues() {
+		screenWidth = Camera.main.pixelWidth;
+		screenHeight = Camera.main.pixelHeight;
 	}
 
 	void UpdateFlower() {
@@ -71,12 +80,12 @@ public class BackgroundGenerator : MonoBehaviour {
 		}
 
 		// Scale it.
-		dirtObject.localScale = new Vector3(Screen.width,
+		dirtObject.localScale = new Vector3(screenWidth,
 		                                    ScreenPercentToPixels(dirtScreenHeight),
 		                                    1.0f);
 
 		// Move it.
-		float yPos = (int)(-(Screen.height / 2) + (dirtObject.localScale.y / 2));
+		float yPos = (int)(-(screenHeight / 2) + (dirtObject.localScale.y / 2));
 		dirtObject.position = new Vector3(0.0f, yPos, dirtDepth);
 	}
 
@@ -89,12 +98,12 @@ public class BackgroundGenerator : MonoBehaviour {
 		}
 		
 		// Scale it.
-		grassObject.localScale = new Vector3(Screen.width,
+		grassObject.localScale = new Vector3(screenWidth, //Screen.width,
 		                                    ScreenPercentToPixels(grassScreenHeight),
 		                                    1.0f);
 		
 		// Move it.
-		int yPos = (int)(-(Screen.height / 2) + (grassObject.localScale.y / 2) + dirtObject.localScale.y);
+		int yPos = (int)(-(screenHeight / 2) + (grassObject.localScale.y / 2) + dirtObject.localScale.y);
 		grassObject.position = new Vector3(0.0f, yPos, grassDepth);
 	}
 
@@ -112,13 +121,13 @@ public class BackgroundGenerator : MonoBehaviour {
 		float postHeight = referenceRenderer.sprite.textureRect.height * scaleRatio;
 
 		// Calculate how many posts needed to cover the screen.
-		fencePostCount = Mathf.CeilToInt((Screen.width + fenceOffset) / postWidth) + 1;
+		fencePostCount = Mathf.CeilToInt((screenWidth + fenceOffset) / postWidth) + 1;
 
 		UpdateFenceCount();
 
 
 
-		float xPos = -(Screen.width / 2) + (postWidth / 2) + fenceOffset;
+		float xPos = -(screenWidth / 2) + (postWidth / 2) + fenceOffset;
 		float YPos = ((grassObject.localScale.y / 2) + grassObject.position.y);
 		for (int i = 0; i < fencePosts.Count; i++) {
 			// Grab it.
@@ -171,7 +180,8 @@ public class BackgroundGenerator : MonoBehaviour {
 	// Utility
 
 	int ScreenPercentToPixels(float percent) {
-		return (int)(Screen.height * percent);
+		//return (int)(Screen.height * percent);
+		return (int)(Camera.main.pixelHeight * percent);
 	}
 }
 

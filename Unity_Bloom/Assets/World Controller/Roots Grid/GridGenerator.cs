@@ -52,6 +52,8 @@ public class GridGenerator : MonoBehaviour {
 				dirtTrans = dirtObject.transform;
 				return true;
 			}
+
+			Debug.LogError("GridGenerator -> Couldn't find dirt.");
 			return false;
 		}
 		return true;
@@ -64,6 +66,8 @@ public class GridGenerator : MonoBehaviour {
 				gridTrans = gridObject.transform;
 				return true;
 			}
+
+			Debug.LogError("GridGenerator -> Couldn't find grid object.");
 			return false;
 		}
 		return true;
